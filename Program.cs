@@ -1,15 +1,24 @@
+﻿using LMS.API.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// 1️⃣ Add DbContext for SQL Server
+builder.Services.AddDbContext<LMSDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+
+
+// 3️⃣ Add Controllers
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
+// 4️⃣ Swagger (for API testing)
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// 5️⃣ Configure middleware
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -18,6 +27,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+// (Optional) if you add authentication later, keep this here
 app.UseAuthorization();
 
 app.MapControllers();
