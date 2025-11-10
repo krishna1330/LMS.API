@@ -3,37 +3,27 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LMS.API.Entities
 {
-    [Table("Users")]
     public class User
     {
-        [Key]
         public int UserId { get; set; }
 
-        [Required, StringLength(20)]
-        public string UserType { get; set; } = string.Empty;
+        public string? UserType { get; set; }
 
-        [Required, StringLength(30)]
-        public string FirstName { get; set; } = string.Empty;
+        public string? FirstName { get; set; }
 
-        [StringLength(30)]
         public string? LastName { get; set; }
 
-        [Required, StringLength(100)]
-        public string Email { get; set; } = string.Empty;
+        public string? Email { get; set; }
 
-        [Required]
-        public string PasswordHash { get; set; } = string.Empty;
+        public string? PasswordHash { get; set; }
 
-        public bool IsActive { get; set; } = true;
+        public bool IsActive { get; set; }
 
-        public bool IsDeleted { get; set; } = false;
+        public bool IsDeleted { get; set; }
 
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public DateTime CreatedAt { get; set; }
 
-        public DateTime? UpdatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
 
-        // 🔁 Relationships
-        public ICollection<LeaveConsumed>? LeavesRequested { get; set; }
-        public ICollection<LeaveConsumed>? LeavesApproved { get; set; }
     }
 }

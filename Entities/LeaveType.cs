@@ -3,25 +3,19 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LMS.API.Entities
 {
-    [Table("LeaveType")]
     public class LeaveType
     {
-        [Key]
         public int LeaveTypeId { get; set; }
 
-        [Required, StringLength(50)]
-        public string LeaveTypeName { get; set; } = string.Empty; // e.g. "Sick Leave", "Casual Leave"
+        public string? LeaveTypeName { get; set; }
 
-        [Column(TypeName = "decimal(4,2)")]
         public decimal DaysPerMonth { get; set; }
 
-        public bool IsActive { get; set; } = true;
+        public bool IsActive { get; set; }
 
-        public bool IsDeleted { get; set; } = false;
+        public bool IsDeleted { get; set; }
 
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public DateTime CreatedAt { get; set; }
 
-        // 🔁 Relationship
-        public ICollection<LeaveConsumed>? LeavesConsumed { get; set; }
     }
 }
