@@ -1,0 +1,41 @@
+CREATE TABLE Users 
+(
+    UserId INT IDENTITY(1,1) PRIMARY KEY,
+    UserType VARCHAR(20) NOT NULL,
+    FirstName VARCHAR(30) NOT NULL,
+    LastName VARCHAR(30) NULL,
+    Email VARCHAR(100) NOT NULL UNIQUE,
+    PasswordHash VARCHAR(MAX) NOT NULL,
+    IsActive BIT NOT NULL DEFAULT 1,
+    IsDeleted BIT NOT NULL DEFAULT 0,
+    CreatedAt DATETIME DEFAULT GETDATE(),
+    UpdatedAt DATETIME NULL
+);
+
+
+CREATE TABLE LeaveType
+(
+    LeaveTypeId INT IDENTITY(1,1) PRIMARY KEY,
+    LeaveTypeName VARCHAR(50) NOT NULL,
+    DaysPerMonth DECIMAL(4,2) NOT NULL,
+    IsActive BIT NOT NULL DEFAULT 1,
+    IsDeleted BIT NOT NULL DEFAULT 0,
+    CreatedAt DATETIME DEFAULT GETDATE()
+);
+
+
+CREATE TABLE LeavesConsumed
+(
+    LeaveConsumedId INT IDENTITY(1,1) PRIMARY KEY,
+    EmployeeId INT NOT NULL FOREIGN KEY REFERENCES Users(UserId),
+    LeaveTypeId INT NOT NULL FOREIGN KEY REFERENCES LeaveType(LeaveTypeId),
+    FromDate DATETIME NOT NULL,
+    ToDate DATETIME NOT NULL,
+    NumberOfDays DECIMAL(4,2) NOT NULL,
+    LeaveStatus VARCHAR(30) NOT NULL DEFAULT 'Pending',
+    Comments VARCHAR(MAX) NULL,
+    IsActive BIT NOT NULL DEFAULT 1,
+    IsDeleted BIT NOT NULL DEFAULT 0,
+    CreatedAt DATETIME DEFAULT GETDATE(),
+    ApprovedBy INT NULL FOREIGN KEY REFERENCES Users(UserId)
+);
